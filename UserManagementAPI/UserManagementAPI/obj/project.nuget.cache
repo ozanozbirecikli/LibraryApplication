@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "5vUKhF8IbZnlrk6fKIPc/0s7o0RZSG3XkLaa4AKCxYpft8lmTlFsoO6GmcunwH5mOpZga+nBhhl8mq7n18SlFg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\LENOVO\\source\\repos\\UserManagementAPI\\UserManagementAPI\\UserManagementAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\bogus\\32.0.2\\bogus.32.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

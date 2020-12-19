@@ -1,0 +1,13 @@
+C:\Users\LENOVO\source\repos\Basics\Basics\bin\Debug\netcoreapp3.1\Basics.exe
+C:\Users\LENOVO\source\repos\Basics\Basics\bin\Debug\netcoreapp3.1\Basics.deps.json
+C:\Users\LENOVO\source\repos\Basics\Basics\bin\Debug\netcoreapp3.1\Basics.runtimeconfig.json
+C:\Users\LENOVO\source\repos\Basics\Basics\bin\Debug\netcoreapp3.1\Basics.runtimeconfig.dev.json
+C:\Users\LENOVO\source\repos\Basics\Basics\bin\Debug\netcoreapp3.1\Basics.dll
+C:\Users\LENOVO\source\repos\Basics\Basics\bin\Debug\netcoreapp3.1\Basics.pdb
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.csprojAssemblyReference.cache
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.AssemblyInfoInputs.cache
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.AssemblyInfo.cs
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.dll
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.pdb
+C:\Users\LENOVO\source\repos\Basics\Basics\obj\Debug\netcoreapp3.1\Basics.genruntimeconfig.cache
