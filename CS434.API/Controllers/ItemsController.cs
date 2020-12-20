@@ -1,21 +1,26 @@
-﻿using LibraryApplication.Business.Abstract;
-using LibraryApplication.Models;
+﻿
+using CS434.API.Interfaces;
+using CS434.API.MODELS.Database;
+using CS434.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LibraryApplication.Controllers
+namespace CS434.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ItemsController:ControllerBase
 	{
 		private IItemService _itemService;
-		public ItemsController(IItemService ıtemService)
+		private IConfiguration configuration;
+
+		public ItemsController(IConfiguration configuration)
 		{
-			_itemService = ıtemService;
+			_itemService = new ItemService(configuration);
 
 		}
 
@@ -53,7 +58,7 @@ namespace LibraryApplication.Controllers
 		/// <param name="item"></param>
 		/// <returns></returns>
 		[HttpPost]
-		public IActionResult Post([FromBody] Item item)
+		public IActionResult Post([FromBody] Items item)
 		{
 			var createdItem = _itemService.CreateItem(item);
 			return CreatedAtAction("Get", new { id = createdItem.Id }, createdItem);
@@ -66,7 +71,7 @@ namespace LibraryApplication.Controllers
 		/// <param name="item"></param>
 		/// <returns></returns>
 		[HttpPut]
-		public IActionResult Put([FromBody] Item item)
+		public IActionResult Put([FromBody] Items item)
 		{
 			if(_itemService.GetItemById(item.Id) != null)
 			{
