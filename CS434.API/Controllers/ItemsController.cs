@@ -1,4 +1,5 @@
-﻿using LibraryApplication.Business.Abstract;
+﻿using CS434.API.Interfaces;
+
 using LibraryApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -53,7 +54,7 @@ namespace LibraryApplication.Controllers
 		/// <param name="item"></param>
 		/// <returns></returns>
 		[HttpPost]
-		public IActionResult Post([FromBody] Item item)
+		public IActionResult Post([FromBody] Items item)
 		{
 			var createdItem = _itemService.CreateItem(item);
 			return CreatedAtAction("Get", new { id = createdItem.Id }, createdItem);
@@ -63,10 +64,10 @@ namespace LibraryApplication.Controllers
 		/// <summary>
 		/// Update Item
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="items"></param>
 		/// <returns></returns>
 		[HttpPut]
-		public IActionResult Put([FromBody] Item item)
+		public IActionResult Put([FromBody] Items item)
 		{
 			if(_itemService.GetItemById(item.Id) != null)
 			{

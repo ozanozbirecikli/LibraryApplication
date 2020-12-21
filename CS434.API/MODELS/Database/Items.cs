@@ -4,23 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryApplication.Models
 {
-	public class Item
+	public class Items
 	{
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key]
 		public int Id { get; set; }
 
-		[StringLength(50)]
-		[Required]
+		
 		public string Name { get; set; }
 
-		[StringLength(50)]
-		[Required]
 		public string Type { get; set; }
 
 		public int Year { get; set; }
 		
-		[StringLength(50)]
-		[Required]
+		
 		public string Author { get; set; }
 		public int Amount { get; set; }
 

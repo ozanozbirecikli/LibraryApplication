@@ -1,48 +1,66 @@
-﻿using LibraryApplication.Business.Abstract;
-using LibraryApplication.DataAccess.Abstract;
-using LibraryApplication.DataAccess.Concrete;
+﻿using CS434.API.Interfaces;
+using CS434.API.MODELS.Database;
 using LibraryApplication.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace LibraryApplication.Business.Concrete
+namespace CS434.API.Services
 {
 	public class ItemService : IItemService
 	{
-		private IItemRepository _itemRepository;
+		IConfiguration configuration;
 
-		public ItemService(IItemRepository itemRepository)
+		public ItemService(IConfiguration configuration)
 		{
-			_itemRepository = itemRepository;
+			this.configuration = configuration;
 		}
-		public Item CreateItem(Item item)
+		public Items CreateItem(Items item)
 		{
-			return _itemRepository.CreateItem(item);
+			using (var itemDbContext = new DEV_Context())
+			{
+				itemDbContext.Items.Add(item);
+				itemDbContext.SaveChanges();
+				return item;
+			}
 		}
 
 		public void DeleteItem(int id)
 		{
-			_itemRepository.DeleteItem(id);
-		}
-
-		public List<Item> GetAllItems()
-		{
-
-			return _itemRepository.GetAllItems();
-		}
-
-		public Item GetItemById(int id)
-		{
-			if (id > 0)
+			using (var itemDbContext = new DEV_Context())
 			{
-				return _itemRepository.GetItemById(id);
+				var deletedItem = GetItemById(id);
+				itemDbContext.Items.Remove(deletedItem);
+				itemDbContext.SaveChanges();
 			}
-			throw new Exception("Id must be bigger than 0");
 		}
 
-		public Item UpdateItem(Item item)
+		public List<Items> GetAllItems()
 		{
-			return _itemRepository.UpdateItem(item);
+			using (var itemDbContext = new DEV_Context())
+			{
+				return itemDbContext.Items.ToList();
+			}
+		}
+
+		public Items GetItemById(int id)
+		{
+			using (var itemDbContext = new DEV_Context())
+			{
+				return itemDbContext.Items.Find(id);
+			}
+
+		}
+
+		public Items UpdateItem(Items item)
+		{
+			using (var itemDbContext = new DEV_Context())
+			{
+				itemDbContext.Items.Update(item);
+				itemDbContext.SaveChanges();
+				return item;
+			}
 		}
 	}
 }

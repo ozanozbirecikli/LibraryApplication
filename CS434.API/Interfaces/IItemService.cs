@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LibraryApplication.Business.Abstract
+namespace CS434.API.Interfaces
 {
 	public interface IItemService
 	{
-		List<Item> GetAllItems();
-		Item GetItemById(int id);
-		Item CreateItem(Item item);
-		Item UpdateItem(Item item);
+		List<Items> GetAllItems();
+		Items GetItemById(int id);
+		Items CreateItem(Items item);
+		Items UpdateItem(Items item);
 		void DeleteItem(int id);
 
 	}

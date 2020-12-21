@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CS434.API.Services
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         IConfiguration configuration;
         public UserService(IConfiguration configuration)
@@ -51,9 +51,59 @@ namespace CS434.API.Services
             }
         }
 
-        public Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel)
+        public async Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new DEV_Context())
+            {
+                using (var dbContextTransaction = dbContext.Database.BeginTransaction())
+                {
+
+
+                    try
+                    {
+                        MessageModel messageModel = new MessageModel();
+                        var sorgu = dbContext.Set<Users>().FirstOrDefault(x => x.EMAIL == signUpRequestModel.Email);
+                        if (sorgu != null)
+                        {
+                            messageModel.Message = "Bu mail hesabıyla daha önce kaydolunmuştur.";
+                            messageModel.Result = false;
+                            return messageModel;
+                        }
+                        else
+                        {
+                            var user = new Users
+                            {
+                                NAME = signUpRequestModel.Name,
+                                SURNAME = signUpRequestModel.Surname,
+                                EMAIL = signUpRequestModel.Email,
+                                PASSWORD = signUpRequestModel.Password
+
+                            };
+
+                            user.ID_ROLE = 1;
+                            await dbContext.Set<Users>().AddAsync(user);
+                            await dbContext.SaveChangesAsync();
+
+                            messageModel.Message = "Kullanıcı başarıyla oluşturulmuştur.";
+                            messageModel.Result = true;
+
+                            dbContext.SaveChanges();
+                            dbContextTransaction.Commit();
+
+                            return messageModel;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        dbContextTransaction.Rollback();
+                        Console.WriteLine(e.InnerException.Message);
+                        throw;
+                    }
+
+                }
+
+            }
         }
     }
 }
