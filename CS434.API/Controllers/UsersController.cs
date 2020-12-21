@@ -29,5 +29,11 @@ namespace CS434.API.Controllers
             return userService.SignIn(signInRequestModel);
         }
 
+        [HttpPost("SignUp")]
+        public Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel)
+        {
+            return userService.SignUp(signUpRequestModel);
+        }
+
     }
 }

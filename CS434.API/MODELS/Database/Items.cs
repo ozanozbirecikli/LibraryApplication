@@ -8,9 +8,21 @@ namespace CS434.API.MODELS.Database
 	{
 		[Key]
 		public int Id { get; set; }
+<<<<<<< HEAD:CS434.API/MODELS/Database/Items.cs
+
+		
 		public string Name { get; set; }
+
+=======
+		public string Name { get; set; }
+>>>>>>> main:CS434.API/MODELS/Database/Item.cs
 		public string Type { get; set; }
 		public int Year { get; set; }
+<<<<<<< HEAD:CS434.API/MODELS/Database/Items.cs
+		
+		
+=======
+>>>>>>> main:CS434.API/MODELS/Database/Item.cs
 		public string Author { get; set; }
 		public int Amount { get; set; }
 

@@ -1,7 +1,13 @@
+<<<<<<< HEAD
+﻿using CS434.API.Interfaces;
+
+using LibraryApplication.Models;
+=======
 ﻿
 using CS434.API.Interfaces;
 using CS434.API.MODELS.Database;
 using CS434.API.Services;
+>>>>>>> main
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -68,7 +74,7 @@ namespace CS434.API.Controllers
 		/// <summary>
 		/// Update Item
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="items"></param>
 		/// <returns></returns>
 		[HttpPut]
 		public IActionResult Put([FromBody] Items item)
