@@ -1,6 +1,9 @@
 ﻿using CS434.API.Interfaces;
 using CS434.API.MODELS.Database;
+<<<<<<< HEAD
 using LibraryApplication.Models;
+=======
+>>>>>>> main
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -50,7 +53,11 @@ namespace CS434.API.Services
 			{
 				return itemDbContext.Items.Find(id);
 			}
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> main
 		}
 
 		public Items UpdateItem(Items item)
