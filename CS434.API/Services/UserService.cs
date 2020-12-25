@@ -18,30 +18,33 @@ namespace CS434.API.Services
             this.configuration = configuration;
         }
 
-        public MessageModel SignIn(SignInRequestModel signInRequestModel)
+        public LoginModel SignIn(SignInRequestModel signInRequestModel)
         {
             using (var dbContext = new DEV_Context())
             {
                 try
                 {
-                    MessageModel messageModel = new MessageModel();
+                    LoginModel loginModel = new LoginModel();
                     var user = dbContext.Set<Users>().FirstOrDefault(x => x.EMAIL == signInRequestModel.Email);
                     if (user == null)
                     {
-                        messageModel.Result = false;
-                        messageModel.Message = "Kullanıcı Bulunamamaktadır!";
-                        return messageModel;
+                        loginModel.Result = false;
+                        loginModel.Message = "Invalid Username or Password!";
+                        loginModel.User = null;
+                        return loginModel;
                     }
                     else if (user.PASSWORD != signInRequestModel.Password)
                     {
-                        messageModel.Result = false;
-                        messageModel.Message = "Kullanıcı bilgileriniz hatalı!";
-                        return messageModel;
+                        loginModel.Result = false;
+                        loginModel.Message = "Wrong Password!";
+                        loginModel.User = null;
+                        return loginModel;
                     }
 
-                    messageModel.Result = true;
-                    messageModel.Message = "Başarıyla girilmiştir!";
-                    return messageModel;
+                    loginModel.Result = true;
+                    loginModel.Message = "User Logged in Successfully!";
+                    loginModel.User = user;
+                    return loginModel;
                 }
                 catch (Exception e)
                 {
@@ -76,11 +79,12 @@ namespace CS434.API.Services
                                 NAME = signUpRequestModel.Name,
                                 SURNAME = signUpRequestModel.Surname,
                                 EMAIL = signUpRequestModel.Email,
-                                PASSWORD = signUpRequestModel.Password
+                                PASSWORD = signUpRequestModel.Password,
+                                ID_ROLE = signUpRequestModel.User_role
 
-                            };
 
-                            user.ID_ROLE = 1;
+                        };
+
                             await dbContext.Set<Users>().AddAsync(user);
                             await dbContext.SaveChangesAsync();
 

@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 ﻿using CS434.API.Interfaces;
 
-using LibraryApplication.Models;
-=======
-﻿
-using CS434.API.Interfaces;
 using CS434.API.MODELS.Database;
+using CS434.API.MODELS.Response;
 using CS434.API.Services;
->>>>>>> main
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -35,10 +30,9 @@ namespace CS434.API.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		public IActionResult Get()
+		public ItemsModel Get()
 		{
-			var items = _itemService.GetAllItems();
-			return Ok(items);
+			return _itemService.GetAllItems();
 
 		}
 
@@ -48,14 +42,10 @@ namespace CS434.API.Controllers
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
-		public IActionResult Get(int id)
+		public ItemsModel Get(int id)
 		{
-			var item = _itemService.GetItemById(id);
-			if(item != null)
-			{
-				return Ok(item);
-			}
-			return NotFound();
+			return _itemService.GetItemById(id);
+
 		}
 
 		/// <summary>
@@ -63,11 +53,11 @@ namespace CS434.API.Controllers
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		[HttpPost]
-		public IActionResult Post([FromBody] Items item)
+		[HttpPost("AddItem")]
+		public MessageModel Post([FromBody] Items item)
 		{
-			var createdItem = _itemService.CreateItem(item);
-			return CreatedAtAction("Get", new { id = createdItem.Id }, createdItem);
+			return _itemService.CreateItem(item);
+			
 
 		}
 
@@ -76,15 +66,12 @@ namespace CS434.API.Controllers
 		/// </summary>
 		/// <param name="items"></param>
 		/// <returns></returns>
-		[HttpPut]
-		public IActionResult Put([FromBody] Items item)
+		[HttpPut("UpdateItem")]
+		public MessageModel Put([FromBody] Items item)
 		{
-			if(_itemService.GetItemById(item.Id) != null)
-			{
-				return Ok(_itemService.UpdateItem(item));
-			}
-			return NotFound();
-
+			
+			return _itemService.UpdateItem(item);
+			
 		}
 
 		/// <summary>
