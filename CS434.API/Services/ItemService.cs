@@ -1,9 +1,6 @@
 ﻿using CS434.API.Interfaces;
 using CS434.API.MODELS.Database;
-<<<<<<< HEAD
-using LibraryApplication.Models;
-=======
->>>>>>> main
+using CS434.API.MODELS.Response;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -19,13 +16,18 @@ namespace CS434.API.Services
 		{
 			this.configuration = configuration;
 		}
-		public Items CreateItem(Items item)
+		public MessageModel CreateItem(Items item)
 		{
 			using (var itemDbContext = new DEV_Context())
 			{
+				MessageModel model = new MessageModel();
+
 				itemDbContext.Items.Add(item);
 				itemDbContext.SaveChanges();
-				return item;
+
+				model.Result = true;
+				model.Message = "Item Created Successfully";
+				return model;
 			}
 		}
 
@@ -34,39 +36,80 @@ namespace CS434.API.Services
 			using (var itemDbContext = new DEV_Context())
 			{
 				var deletedItem = GetItemById(id);
-				itemDbContext.Items.Remove(deletedItem);
+				itemDbContext.Items.Remove(itemDbContext.Items.Find(id));
 				itemDbContext.SaveChanges();
 			}
 		}
 
-		public List<Items> GetAllItems()
+		public ItemsModel GetAllItems()
 		{
 			using (var itemDbContext = new DEV_Context())
 			{
-				return itemDbContext.Items.ToList();
-			}
-		}
-
-		public Items GetItemById(int id)
-		{
-			using (var itemDbContext = new DEV_Context())
-			{
-				return itemDbContext.Items.Find(id);
-			}
-<<<<<<< HEAD
-
-=======
+				ItemsModel model = new ItemsModel();
+				List<Items> allItems = itemDbContext.Items.ToList();
 			
->>>>>>> main
+				if(allItems.Count != 0)
+				{
+					model.Result = true;
+					model.Message = "All Items Fetched Successfully!";
+					model.objects = allItems;
+				}
+				else
+				{
+					model.Result = false;
+					model.Message = "There is no Item!";
+					model.objects = null;
+				}
+
+				return model;
+			}
 		}
 
-		public Items UpdateItem(Items item)
+		public ItemsModel GetItemById(int id)
 		{
 			using (var itemDbContext = new DEV_Context())
 			{
-				itemDbContext.Items.Update(item);
-				itemDbContext.SaveChanges();
-				return item;
+				ItemsModel model = new ItemsModel();
+
+				Items getItem = itemDbContext.Items.Find(id);
+
+				if(getItem != null)
+				{
+					model.Result = true;
+					model.Message = "Item Fetched Successfully!";
+					model.objects = getItem;
+				}
+				else
+				{
+					model.Result = false;
+					model.Message = "There is no Item with Selected Id!";
+					model.objects = null;
+				}
+
+				return model;
+			}
+		}
+
+		public MessageModel UpdateItem(Items item)
+		{
+			using (var itemDbContext = new DEV_Context())
+			{
+
+				MessageModel model = new MessageModel();
+				if (itemDbContext.Items.Find(item.Id) != null)
+				{
+
+					itemDbContext.Items.Update(item);
+					itemDbContext.SaveChanges();
+					model.Result = true;
+					model.Message = "Item Updated Successfully";
+				}
+				else
+				{
+					model.Result = false;
+					model.Message = "Item Doesn't Exist";
+				}
+				return model;
 			}
 		}
 	}
