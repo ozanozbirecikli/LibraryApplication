@@ -12,7 +12,7 @@ namespace CS434.API.MODELS.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=DESKTOP-IO4LGA6; Database=LibraryDb; Trusted_Connection=true");
+            optionsBuilder.UseSqlServer("Server=LAPTOP-9G7R9FIF; Database=LibraryDb; Trusted_Connection=true");
         }
 
         public DbSet<Users> Users { get; set; }
