@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CS434.API.MODELS.Database
 {
-    [Table("REZERVATIONS")]
-    public class Rezervations
+    [Table("RESERVATIONS")]
+    public class Reservations
     {
         [Key]
         public int REZ_ID { get; set; }
@@ -16,6 +16,7 @@ namespace CS434.API.MODELS.Database
         public int ITEM_ID { get; set; }
         public bool? IS_RETURNED { get; set; }
         public DateTime? REZ_DATE { get; set; }
+        public DateTime? RETURN_DATE { get; set; }
 
     }
 }

@@ -18,6 +18,7 @@ namespace CS434.API.MODELS.Database
         public DbSet<Users> Users { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Items> Items { get; set; }
+        public DbSet<Reservations> Reservations { get; set; }
 
     }
 }
