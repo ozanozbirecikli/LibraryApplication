@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CS434.API.Services
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         IConfiguration configuration;
         public UserService(IConfiguration configuration)
@@ -18,30 +18,33 @@ namespace CS434.API.Services
             this.configuration = configuration;
         }
 
-        public MessageModel SignIn(SignInRequestModel signInRequestModel)
+        public LoginModel SignIn(SignInRequestModel signInRequestModel)
         {
             using (var dbContext = new DEV_Context())
             {
                 try
                 {
-                    MessageModel messageModel = new MessageModel();
+                    LoginModel loginModel = new LoginModel();
                     var user = dbContext.Set<Users>().FirstOrDefault(x => x.EMAIL == signInRequestModel.Email);
                     if (user == null)
                     {
-                        messageModel.Result = false;
-                        messageModel.Message = "Kullanıcı Bulunamamaktadır!";
-                        return messageModel;
+                        loginModel.Result = false;
+                        loginModel.Message = "Invalid Username or Password!";
+                        loginModel.User = null;
+                        return loginModel;
                     }
                     else if (user.PASSWORD != signInRequestModel.Password)
                     {
-                        messageModel.Result = false;
-                        messageModel.Message = "Kullanıcı bilgileriniz hatalı!";
-                        return messageModel;
+                        loginModel.Result = false;
+                        loginModel.Message = "Wrong Password!";
+                        loginModel.User = null;
+                        return loginModel;
                     }
 
-                    messageModel.Result = true;
-                    messageModel.Message = "Başarıyla girilmiştir!";
-                    return messageModel;
+                    loginModel.Result = true;
+                    loginModel.Message = "User Logged in Successfully!";
+                    loginModel.User = user;
+                    return loginModel;
                 }
                 catch (Exception e)
                 {
@@ -51,9 +54,66 @@ namespace CS434.API.Services
             }
         }
 
-        public Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel)
+        public async Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new DEV_Context())
+            {
+                using (var dbContextTransaction = dbContext.Database.BeginTransaction())
+                {
+
+
+                    try
+                    {
+                        MessageModel messageModel = new MessageModel();
+                        var sorgu = dbContext.Set<Users>().FirstOrDefault(x => x.EMAIL == signUpRequestModel.Email);
+                        if (sorgu != null)
+                        {
+                            messageModel.Message = "Bu mail hesabıyla daha önce kaydolunmuştur.";
+                            messageModel.Result = false;
+                            return messageModel;
+                        }
+                        else
+                        {
+                            var user = new Users
+                            {
+                                NAME = signUpRequestModel.Name,
+                                SURNAME = signUpRequestModel.Surname,
+                                EMAIL = signUpRequestModel.Email,
+                                PASSWORD = signUpRequestModel.Password,
+                                ID_ROLE = signUpRequestModel.User_role
+
+
+                        };
+
+                            await dbContext.Set<Users>().AddAsync(user);
+                            await dbContext.SaveChangesAsync();
+
+                            messageModel.Message = "Kullanıcı başarıyla oluşturulmuştur.";
+                            messageModel.Result = true;
+
+                            dbContext.SaveChanges();
+                            dbContextTransaction.Commit();
+
+                            return messageModel;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        dbContextTransaction.Rollback();
+                        Console.WriteLine(e.InnerException.Message);
+                        throw;
+                    }
+
+                }
+
+            }
         }
+    
+    
+    
+    
+    
+    
     }
 }

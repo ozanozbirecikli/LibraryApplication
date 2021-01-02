@@ -10,6 +10,6 @@ namespace CS434.API.Interfaces
     interface IUserService
     {
         Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel);
-        MessageModel SignIn(SignInRequestModel signInRequestModel);
+        LoginModel SignIn(SignInRequestModel signInRequestModel);
     }
 }

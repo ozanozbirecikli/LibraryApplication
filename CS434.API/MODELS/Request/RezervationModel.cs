@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace CS434.API.MODELS.Request
 {
-    public class SignInRequestModel
+    public class RezervationModel
     {
-        
-        public string Email { get; set; }
-        public string Password { get; set; }
-        
+        public int User_Id { get; set; }
+        public int Item_Id { get; set; }
     }
 }

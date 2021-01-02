@@ -1,21 +1,27 @@
-﻿using LibraryApplication.Business.Abstract;
-using LibraryApplication.Models;
+﻿using CS434.API.Interfaces;
+
+using CS434.API.MODELS.Database;
+using CS434.API.MODELS.Response;
+using CS434.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LibraryApplication.Controllers
+namespace CS434.API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ItemsController:ControllerBase
 	{
 		private IItemService _itemService;
-		public ItemsController(IItemService ıtemService)
+		private IConfiguration configuration;
+
+		public ItemsController(IConfiguration configuration)
 		{
-			_itemService = ıtemService;
+			_itemService = new ItemService(configuration);
 
 		}
 
@@ -24,10 +30,9 @@ namespace LibraryApplication.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		public IActionResult Get()
+		public ItemsModel Get()
 		{
-			var items = _itemService.GetAllItems();
-			return Ok(items);
+			return _itemService.GetAllItems();
 
 		}
 
@@ -37,14 +42,10 @@ namespace LibraryApplication.Controllers
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
-		public IActionResult Get(int id)
+		public ItemsModel Get(int id)
 		{
-			var item = _itemService.GetItemById(id);
-			if(item != null)
-			{
-				return Ok(item);
-			}
-			return NotFound();
+			return _itemService.GetItemById(id);
+
 		}
 
 		/// <summary>
@@ -52,28 +53,25 @@ namespace LibraryApplication.Controllers
 		/// </summary>
 		/// <param name="item"></param>
 		/// <returns></returns>
-		[HttpPost]
-		public IActionResult Post([FromBody] Item item)
+		[HttpPost("AddItem")]
+		public MessageModel Post([FromBody] Items item)
 		{
-			var createdItem = _itemService.CreateItem(item);
-			return CreatedAtAction("Get", new { id = createdItem.Id }, createdItem);
+			return _itemService.CreateItem(item);
+			
 
 		}
 
 		/// <summary>
 		/// Update Item
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="items"></param>
 		/// <returns></returns>
-		[HttpPut]
-		public IActionResult Put([FromBody] Item item)
+		[HttpPut("UpdateItem")]
+		public MessageModel Put([FromBody] Items item)
 		{
-			if(_itemService.GetItemById(item.Id) != null)
-			{
-				return Ok(_itemService.UpdateItem(item));
-			}
-			return NotFound();
-
+			
+			return _itemService.UpdateItem(item);
+			
 		}
 
 		/// <summary>

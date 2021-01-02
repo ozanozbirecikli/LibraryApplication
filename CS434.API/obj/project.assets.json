@@ -11885,11 +11885,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Cem\\Source\\Repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\CS434.API.csproj",
+      "projectUniqueName": "C:\\Users\\Cem\\source\\repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\CS434.API.csproj",
       "projectName": "CS434.API",
-      "projectPath": "C:\\Users\\Cem\\Source\\Repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\CS434.API.csproj",
+      "projectPath": "C:\\Users\\Cem\\source\\repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\CS434.API.csproj",
       "packagesPath": "C:\\Users\\Cem\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Cem\\Source\\Repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\obj\\",
+      "outputPath": "C:\\Users\\Cem\\source\\repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Cem\\AppData\\Roaming\\NuGet\\NuGet.Config",

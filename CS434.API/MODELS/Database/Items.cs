@@ -2,25 +2,16 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace LibraryApplication.Models
+namespace CS434.API.MODELS.Database
 {
-	public class Item
+	[Table("Items")]
+	public class Items
 	{
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key]
 		public int Id { get; set; }
-
-		[StringLength(50)]
-		[Required]
 		public string Name { get; set; }
-
-		[StringLength(50)]
-		[Required]
 		public string Type { get; set; }
-
 		public int Year { get; set; }
-		
-		[StringLength(50)]
-		[Required]
 		public string Author { get; set; }
 		public int Amount { get; set; }
 

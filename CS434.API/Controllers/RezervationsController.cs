@@ -17,26 +17,23 @@ namespace CS434.API.Controllers
     [ApiController]
     [AllowAnonymous]
     [Authorize]
-    public class UsersController : ControllerBase
+    public class RezervationsController : ControllerBase
     {
-        IUserService userService;
+        IRezervationService RezervationService;
         IConfiguration configuration;
-        public UsersController(IConfiguration configuration)
+        public RezervationsController(IConfiguration configuration)
         {
-            userService = new UserService(configuration);
+            RezervationService = new RezervationService(configuration);
         }
 
-        [HttpPost("SignIn")]
-        public LoginModel SignIn([FromBody] SignInRequestModel signInRequestModel)
+        [HttpPost("Rezerve")]
+        public ReserveModel makeReservation(RezervationModel  reservationModel)
         {
-            return userService.SignIn(signInRequestModel);
+            return 
         }
 
-        [HttpPost("SignUp")]
-        public Task<MessageModel> SignUp([FromBody] SignUpRequestModel signUpRequestModel)
-        {
-            return userService.SignUp(signUpRequestModel);
-        }
+
+
 
     }
 }
