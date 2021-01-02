@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CS434.API.MODELS.Response
 {
-    public class ReserveResponseModel
+    public class ReservationsResponseModel
     {
         public bool Result { get; set; }
         public string Message { get; set; }
-        public Reservations Rezervation { get; set; }
+        public List<Reservations> reservations { get; set; }
     }
 }

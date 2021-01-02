@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace CS434.API.Services
 {
-    public class RezervationService: IRezervationService
+    public class ReservationService : IReservationService
     {
         IConfiguration configuration;
-        public RezervationService(IConfiguration configuration)
+        public ReservationService(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
 
-        public ReserveResponseModel makeRezervation(RezervationModel rezervationModel)
+        public ReserveResponseModel makeReservation(ReservationModel rezervationModel)
         {
             using (var dbContext = new DEV_Context())
             {
@@ -27,8 +27,8 @@ namespace CS434.API.Services
                     try
                     {
                         ReserveResponseModel reserveResponseModel = new ReserveResponseModel();
-                        var sorgu = dbContext.Set<Rezervations>().FirstOrDefault(x => x.USER_ID == rezervationModel.User_Id && x.ITEM_ID == rezervationModel.Item_Id && x.IS_RETURNED == false);
-                        if (sorgu!= null)
+                        var sorgu = dbContext.Set<Reservations>().FirstOrDefault(x => x.USER_ID == rezervationModel.User_Id && x.ITEM_ID == rezervationModel.Item_Id && x.IS_RETURNED == false);
+                        if (sorgu != null)
                         {
                             reserveResponseModel.Message = "Bu kitabınız hala rezerve haldedir.";
                             reserveResponseModel.Result = false;
@@ -38,25 +38,26 @@ namespace CS434.API.Services
                         }
                         else
                         {
-                            var rezervation = new Rezervations
+                            var rezervation = new Reservations
                             {
                                 USER_ID = rezervationModel.User_Id,
                                 ITEM_ID = rezervationModel.Item_Id,
                                 IS_RETURNED = false,
-                                REZ_DATE = DateTime.Now
+                                REZ_DATE = DateTime.Now,
+                                RETURN_DATE = null
                             };
 
                             reserveResponseModel.Rezervation = rezervation;
                             reserveResponseModel.Message = "Rezervasyon başarıyla oluşturulmuştur.";
                             reserveResponseModel.Result = true;
 
-                            dbContext.Set<Rezervations>().Add(rezervation);
+                            dbContext.Set<Reservations>().Add(rezervation);
                             var itemSorgu = dbContext.Set<Items>().FirstOrDefault(x => x.Id == rezervationModel.Item_Id);
                             itemSorgu.Amount = itemSorgu.Amount - 1;
                             dbContext.SaveChanges();
                             dbContextTransaction.Commit();
 
-                            return  reserveResponseModel;
+                            return reserveResponseModel;
                         }
                     }
                     catch (Exception e)
@@ -70,7 +71,7 @@ namespace CS434.API.Services
             }
         }
 
-        public MessageModel returnRezervedItem(RezervationModel rezervationModel)
+        public MessageModel returnReservedItem(ReservationModel rezervationModel)
         {
             using (var dbContext = new DEV_Context())
             {
@@ -79,17 +80,18 @@ namespace CS434.API.Services
                     try
                     {
                         MessageModel messageModel = new MessageModel();
-                        var sorgu = dbContext.Set<Rezervations>().FirstOrDefault(x => x.USER_ID == rezervationModel.User_Id && x.ITEM_ID == rezervationModel.Item_Id);
+                        var sorgu = dbContext.Set<Reservations>().FirstOrDefault(x => x.USER_ID == rezervationModel.User_Id && x.ITEM_ID == rezervationModel.Item_Id);
                         if (sorgu.IS_RETURNED == true)
                         {
-                            messageModel.Message = "Kitap zaten rezerve edilmemiştir.";
+                            messageModel.Message = "Book is already avalaible.";
                             messageModel.Result = false;
                             return messageModel;
                         }
                         else
                         {
                             sorgu.IS_RETURNED = true;
-                            messageModel.Message = "Kitap iade edilmiştir";
+                            sorgu.RETURN_DATE = DateTime.Now;
+                            messageModel.Message = "Book has been returned.";
                             messageModel.Result = true;
                             var itemSorgu = dbContext.Set<Items>().FirstOrDefault(x => x.Id == rezervationModel.Item_Id);
                             itemSorgu.Amount = itemSorgu.Amount + 1;
@@ -111,29 +113,43 @@ namespace CS434.API.Services
             }
         }
 
-        public List<Items> ShowAllItems()
+
+
+        public ReservationsResponseModel ShowAllItems(int userId)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new DEV_Context())
+            {
+
+                try
+                {
+                    ReservationsResponseModel reservationsResponseModel = new ReservationsResponseModel();
+                    var queryList = dbContext.Set<Reservations>().ToList();
+                    if (queryList.Count > 0)
+                    {
+                        reservationsResponseModel.Message = "All reservations is fetched succesfully!";
+                        reservationsResponseModel.Result = true;
+                        reservationsResponseModel.reservations = queryList;
+                        return reservationsResponseModel;
+                    }
+                    else
+                    {
+                        reservationsResponseModel.Message = "There is no reservations!";
+                        reservationsResponseModel.Result = false;
+                        reservationsResponseModel.reservations = null;
+                        return reservationsResponseModel;
+                    }
+                }
+
+
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+
+
+            }
         }
-
-        //public List<Items> ShowAllItems(int USER_ID)
-        //{
-        //    using (var dbContext = new DEV_Context())
-        //    {
-        //        using (var dbContextTransaction = dbContext.Database.BeginTransaction())
-        //        {
-        //            try
-        //            {
-
-        //            }
-        //            catch (Exception)
-        //            {
-
-        //                throw;
-        //            }
-        //        }
-        //    }
-        //}
 
 
 
