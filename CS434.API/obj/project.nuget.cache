@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EnMi58P3Te89eaqmHBleeVu6VSg8Q/d8h3wq0GwVOquKGpKeBgRXhjArZooKDGn4sDofd287ri5e0JKNsDRMJw==",
+  "dgSpecHash": "z9g8tY/AQkSSHQE6juJ+QGhL7xXHOjCFhoWToWNeOX0D4Dxp2DMfWfrRou9bhdhPlEdzFWGCqynKvJTe4dgN9A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Cem\\source\\repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\CS434.API.csproj",
+  "projectFilePath": "C:\\Users\\Cem\\Source\\Repos\\ozanozbirecikli\\LibraryApplication\\CS434.API\\CS434.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Cem\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.6\\microsoft.aspnet.webapi.client.5.2.6.nupkg.sha512",
     "C:\\Users\\Cem\\.nuget\\packages\\microsoft.aspnetcore\\2.1.1\\microsoft.aspnetcore.2.1.1.nupkg.sha512",
