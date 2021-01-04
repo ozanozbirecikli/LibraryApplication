@@ -123,19 +123,34 @@ namespace CS434.API.Services
                 try
                 {
                     ReservationsResponseModel reservationsResponseModel = new ReservationsResponseModel();
-                    var queryList = dbContext.Set<Reservations>().ToList();
+                    var queryList = dbContext.Set<Reservations>().Where(x => x.USER_ID == userId && x.IS_RETURNED == false ).ToList();
+                    var itemList = dbContext.Set<Items>().Where(x => x.Amount > 0).ToList();
+                    var resultItemList = (from res in queryList
+                                     join item in itemList
+                                     on res.ITEM_ID equals item.Id
+                                     select new Items
+                                     {
+                                         Id = item.Id,
+                                         Name = item.Name,
+                                         Type =item.Type,
+                                         Author = item.Author,
+                                         Year = item.Year,
+                                         Amount = item.Amount
+                                     }).ToList();
+
                     if (queryList.Count > 0)
                     {
+                       
                         reservationsResponseModel.Message = "All reservations is fetched succesfully!";
                         reservationsResponseModel.Result = true;
-                        reservationsResponseModel.reservations = queryList;
+                        reservationsResponseModel.Items = resultItemList;
                         return reservationsResponseModel;
                     }
                     else
                     {
                         reservationsResponseModel.Message = "There is no reservations!";
                         reservationsResponseModel.Result = false;
-                        reservationsResponseModel.reservations = null;
+                        reservationsResponseModel.Items = null;
                         return reservationsResponseModel;
                     }
                 }
