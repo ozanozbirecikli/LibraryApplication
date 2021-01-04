@@ -38,7 +38,7 @@ namespace CS434.API.Controllers
             return reservationService.returnReservedItem(reservationModel); 
         }
 
-        [HttpPost("ShowReservations")]
+        [HttpGet("ShowReservations")]
         public ReservationsResponseModel showReservations(int USER_ID)
         {
             return reservationService.ShowAllItems(USER_ID);

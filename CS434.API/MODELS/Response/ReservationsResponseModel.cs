@@ -10,6 +10,6 @@ namespace CS434.API.MODELS.Response
     {
         public bool Result { get; set; }
         public string Message { get; set; }
-        public List<Reservations> reservations { get; set; }
+        public List<Items> Items { get; set; }
     }
 }
