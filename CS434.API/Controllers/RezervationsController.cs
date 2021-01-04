@@ -27,13 +27,13 @@ namespace CS434.API.Controllers
         }
 
         [HttpPost("Reserve")]
-        public ReserveResponseModel makeReservation(ReservationModel  reservationModel)
+        public ReserveResponseModel makeReservation([FromBody] ReservationModel  reservationModel)
         {
             return reservationService.makeReservation(reservationModel);
         }
 
         [HttpPost("Return")]
-        public MessageModel returnReservation(ReservationModel reservationModel)
+        public MessageModel returnReservation([FromBody] ReservationModel reservationModel)
         {
             return reservationService.returnReservedItem(reservationModel); 
         }
