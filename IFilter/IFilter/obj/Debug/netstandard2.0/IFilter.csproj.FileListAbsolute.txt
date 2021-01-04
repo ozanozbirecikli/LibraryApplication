@@ -1,9 +1,0 @@
-C:\Users\LENOVO\source\repos\IFilter\IFilter\bin\Debug\netstandard2.0\IFilter.deps.json
-C:\Users\LENOVO\source\repos\IFilter\IFilter\bin\Debug\netstandard2.0\IFilter.dll
-C:\Users\LENOVO\source\repos\IFilter\IFilter\bin\Debug\netstandard2.0\IFilter.pdb
-C:\Users\LENOVO\source\repos\IFilter\IFilter\obj\Debug\netstandard2.0\IFilter.csprojAssemblyReference.cache
-C:\Users\LENOVO\source\repos\IFilter\IFilter\obj\Debug\netstandard2.0\IFilter.AssemblyInfoInputs.cache
-C:\Users\LENOVO\source\repos\IFilter\IFilter\obj\Debug\netstandard2.0\IFilter.AssemblyInfo.cs
-C:\Users\LENOVO\source\repos\IFilter\IFilter\obj\Debug\netstandard2.0\IFilter.csproj.CoreCompileInputs.cache
-C:\Users\LENOVO\source\repos\IFilter\IFilter\obj\Debug\netstandard2.0\IFilter.dll
-C:\Users\LENOVO\source\repos\IFilter\IFilter\obj\Debug\netstandard2.0\IFilter.pdb
