@@ -17,11 +17,11 @@ namespace CS434.API.Controllers
 	public class ItemsController:ControllerBase
 	{
 		private IItemService _itemService;
-		private IConfiguration configuration;
+		
 
-		public ItemsController(IConfiguration configuration)
+		public ItemsController(IItemService itemService)
 		{
-			_itemService = new ItemService(configuration);
+			_itemService = itemService;
 
 		}
 

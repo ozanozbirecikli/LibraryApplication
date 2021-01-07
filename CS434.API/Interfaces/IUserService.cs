@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CS434.API.Interfaces
 {
-    interface IUserService
+    public interface IUserService
     {
         Task<MessageModel> SignUp(SignUpRequestModel signUpRequestModel);
         LoginModel SignIn(SignInRequestModel signInRequestModel);

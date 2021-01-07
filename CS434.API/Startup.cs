@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CS434.API.Interfaces;
+using CS434.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +27,10 @@ namespace CS434.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // dependency injection
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IUserService, UserService>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
