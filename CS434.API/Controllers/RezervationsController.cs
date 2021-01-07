@@ -19,29 +19,29 @@ namespace CS434.API.Controllers
     [Authorize]
     public class RezervationsController : ControllerBase
     {
-        IReservationService reservationService;
-        IConfiguration configuration;
-        public RezervationsController(IConfiguration configuration)
+        IReservationService _reservationService;
+        
+        public RezervationsController(IReservationService reservationService)
         {
-            reservationService = new ReservationService(configuration);
+            _reservationService = reservationService;
         }
 
         [HttpPost("Reserve")]
         public ReserveResponseModel makeReservation([FromBody] ReservationModel  reservationModel)
         {
-            return reservationService.makeReservation(reservationModel);
+            return _reservationService.makeReservation(reservationModel);
         }
 
         [HttpPost("Return")]
         public MessageModel returnReservation([FromBody] ReservationModel reservationModel)
         {
-            return reservationService.returnReservedItem(reservationModel); 
+            return _reservationService.returnReservedItem(reservationModel); 
         }
 
         [HttpGet("ShowReservations")]
         public ReservationsResponseModel showReservations(int USER_ID)
         {
-            return reservationService.ShowAllItems(USER_ID);
+            return _reservationService.ShowAllItems(USER_ID);
         }
 
 

@@ -48,8 +48,8 @@ namespace CS434.API.Services
                 }
                 catch (Exception e)
                 {
-
-                    throw e;
+                    Console.WriteLine(e.InnerException.Message);
+                    throw;
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace CS434.API.Services
                                 ID_ROLE = signUpRequestModel.User_role
 
 
-                        };
+                            };
 
                             await dbContext.Set<Users>().AddAsync(user);
                             await dbContext.SaveChangesAsync();
@@ -109,11 +109,11 @@ namespace CS434.API.Services
 
             }
         }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     }
 }

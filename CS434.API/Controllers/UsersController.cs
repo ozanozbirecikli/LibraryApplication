@@ -19,23 +19,23 @@ namespace CS434.API.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        IUserService userService;
-        IConfiguration configuration;
-        public UsersController(IConfiguration configuration)
+        IUserService _userService;
+        
+        public UsersController(IUserService userService)
         {
-            userService = new UserService(configuration);
+            _userService = userService;
         }
 
         [HttpPost("SignIn")]
         public LoginModel SignIn([FromBody] SignInRequestModel signInRequestModel)
         {
-            return userService.SignIn(signInRequestModel);
+            return _userService.SignIn(signInRequestModel);
         }
 
         [HttpPost("SignUp")]
         public Task<MessageModel> SignUp([FromBody] SignUpRequestModel signUpRequestModel)
         {
-            return userService.SignUp(signUpRequestModel);
+            return _userService.SignUp(signUpRequestModel);
         }
 
     }
