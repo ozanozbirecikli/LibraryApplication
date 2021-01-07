@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CS434.API.Interfaces
 {
-    interface IReservationService
+    public interface IReservationService
     {
         ReserveResponseModel makeReservation(ReservationModel rezervationRequestModel);
         MessageModel returnReservedItem(ReservationModel rezervationModel); 
